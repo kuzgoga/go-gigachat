@@ -8,21 +8,29 @@ import (
 )
 
 type ChatRequest struct {
-	Model             string    `json:"model"`
-	Messages          []Message `json:"messages"`
-	Temperature       *float64  `json:"temperature"`
-	TopP              *float64  `json:"top_p"`
-	N                 *int64    `json:"n"`
-	Stream            *bool     `json:"stream"`
-	MaxTokens         *int64    `json:"max_tokens"`
-	RepetitionPenalty *float64  `json:"repetition_penalty"`
-	UpdateInterval    *int64    `json:"update_interval"`
+	Model             string     `json:"model"`
+	Messages          []Message  `json:"messages"`
+	FunctionCall      string     `json:"function_call,omitempty"`
+	Functions         []Function `json:"functions,omitempty"`
+	Temperature       *float64   `json:"temperature"`
+	TopP              *float64   `json:"top_p"`
+	N                 *int64     `json:"n"`
+	Stream            *bool      `json:"stream"`
+	MaxTokens         *int64     `json:"max_tokens"`
+	RepetitionPenalty *float64   `json:"repetition_penalty"`
+	UpdateInterval    *int64     `json:"update_interval"`
 }
 
 type Message struct {
 	Role        string   `json:"role"`
 	Content     string   `json:"content"`
 	Attachments []string `json:"attachments,omitempty"`
+}
+
+type Function struct {
+	Name        string `json:"name"`
+	Description string `json:"description,omitempty"`
+	Parameters  any    `json:"parameters,omitempty"`
 }
 
 type ChatResponse struct {

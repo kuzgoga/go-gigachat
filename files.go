@@ -6,13 +6,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/samber/lo"
 	"io"
 	"mime/multipart"
 	"net/http"
 	"net/textproto"
 	"os"
 	"path/filepath"
+
+	"github.com/samber/lo"
 )
 
 var (
@@ -30,9 +31,9 @@ func (c *Client) checkImgType(filePath string) bool {
 
 func (c *Client) UploadFile(ctx context.Context, filePath string) (string, error) {
 	if info, err := os.Stat(filePath); err != nil {
-		return "", errors.New(fmt.Sprintf("file %q niot found", filePath))
+		return "", fmt.Errorf("file %q niot found", filePath)
 	} else if info.Size() > maxImgSize {
-		return "", errors.New(fmt.Sprintf("the maximum allowed file size is %d bytes", maxImgSize))
+		return "", fmt.Errorf("the maximum allowed file size is %d bytes", maxImgSize)
 	}
 
 	if !c.checkImgType(filePath) {
