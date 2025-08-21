@@ -1,4 +1,4 @@
-module github.com/paulrzcz/go-gigachat
+module github.com/kuzgoga/go-gigachat
 
 go 1.20
 
